@@ -4,11 +4,20 @@ class Table {
         this.base = '';
     }
 
-    updateHTML() {
-
+    updateHTML(currencies, base) {
+        currencies.forEach(currency => {
+            if (currency.name !== base) {
+                document.getElementById(`row-${currency.name}`).innerHTML = (
+                    `<td class="currency">${currency.name}</td>
+                    <td class="buy">${currency.buy}</td>
+                    <td class="sell">${currency.sell}</td>`
+                );
+            }
+        });
     }
 
     render(currencies) {
+        console.log(currencies);
         let tableElm = document.createElement('table');
         tableElm.innerHTML =  
             `<thead>
@@ -19,13 +28,15 @@ class Table {
             <tbody id="tbody">
                 ${
                     currencies.map((currency, i) => {
-                        return (
-                            `<tr>
-                                <td class="currency">${currency.name}</td>
-                                <td class="buy">${currency.buy}</td>
-                                <td class="sell">${currency.sell}</td>
-                            </tr>`
-                        )
+                        if (currency.name !== this.base) {
+                            return (
+                                `<tr id="row-${currency.name}">
+                                    <td class="currency">${currency.name}</td>
+                                    <td class="buy">${currency.buy}</td>
+                                    <td class="sell">${currency.sell}</td>
+                                </tr>`
+                            )
+                        }
                     }).join('')
                 }   
             </tbody>`  
