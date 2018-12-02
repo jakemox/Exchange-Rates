@@ -46,8 +46,16 @@ th {
     border-right: 1px solid black;
 }
 
+th:last-child {
+    border-right: none;
+}
+
 td {
     border-right: 1px solid black;
+}
+
+td:last-child {
+    border-right: none;
 }
 
 table tr:nth-child(even) {
@@ -60,6 +68,34 @@ table tr:nth-child(odd) {
 
 table th {
     background-color: #ccc;
+}
+
+tr.base {
+    color: red;
+}
+
+.currency-th {
+    display: flex;
+    justify-content: space-around;
+}
+
+.arrows {
+    font-size: 0.5rem;
+    border: none;
+    background: none;
+    width: initial;
+    height: initial;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.buy {
+    text-align: end;
+}
+
+.sell {
+    text-align: end;
 }
 
 @media only screen and (min-width: 768px) {
