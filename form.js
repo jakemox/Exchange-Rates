@@ -5,21 +5,32 @@ class Form {
         this.table = table;
     }
 
+    /*
+     * Gets data from api and makes new array of currencies
+     * with data then mounts table with currencies.
+     */
+
     getData(base, date) {
         this.currencies = [];
         
         fetch(`https://api.exchangeratesapi.io/${date}?base=${base}`)
         .then(response => response.json())
         .then(json => {
-            console.log(json);
+            // console.log(json);
             for (const currency in json.rates) {
                 this.currencies.push(new Currency(currency));
             }
-            //push all api currencies into new array to display
+
+            // Loop through currencies and set 'buy' to 5% less than conversion.
+            // Loop through currencies and set 'sell' to 5% more than conversion.
+    
             this.currencies.forEach(currency => {
                 currency.buy = (json.rates[currency.name] - (json.rates[currency.name] * 5 / 100)).toFixed(4);
                 currency.sell = (json.rates[currency.name] + (json.rates[currency.name] * 5 / 100)).toFixed(4);
             });
+
+            // If page is being loaded for first time, table mounts.
+            // Otherwise table updates with new base of alphabet order.
 
             let container = document.getElementById('container');
             
@@ -31,18 +42,27 @@ class Form {
         });
     }
 
+    /*
+     * Takes 'base' and 'date' values from form element and
+     * calls getData with these values.
+     */
+
     action() {
         this.base = document.getElementById('base').value;
         this.date = document.getElementById('date').value;
             
         this.getData(this.base, this.date);
-        console.log(this.currencies);  
+        // console.log(this.currencies);  
     }
 
+    /*
+     * Creates form element HTML.
+     */
+
     render(baseCurrencies) {
-        console.log(baseCurrencies);
-        
         let formElm = document.createElement('div');
+        formElm.setAttribute('class', 'form');
+        formElm.setAttribute('id', 'form');
         formElm.innerHTML = (
             `Base:
             <select name="base" id="base">
@@ -60,11 +80,15 @@ class Form {
         return formElm;
     }
 
+    /*
+     * Puts form element HTML onto page.
+     * Allows click of submit button to call action method.
+     */
+
     mount(parent, baseCurrencies) {
         let formElm = this.render(baseCurrencies);
         parent.appendChild(formElm);
 
-        // let baseElm = document.getElementById('base');
         let dateElm = document.getElementById('date');
         dateElm.value = this.date;
 

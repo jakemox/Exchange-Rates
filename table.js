@@ -8,6 +8,10 @@ class Table {
         this.baseCurrencies = baseCurrencies;
     }
 
+    /*
+     * Logic to return alphabetical order based on 'asc' or 'desc'.
+     */
+
     compare(a, b) {
         const nameA = a.name;
         const nameB = b.name;
@@ -23,10 +27,18 @@ class Table {
         return comparison;
     }
 
+    /*
+     * Sorts currencies into alphabetical order.
+     */
+
     alphabet(currencies) {
         self = this;
         currencies.sort(this.compare);
     }
+
+    /*
+     * HTML to generate table rows. Is called by render and update methods.
+     */
 
     rowsHTML(currencies, base) {
         return (
@@ -48,18 +60,26 @@ class Table {
         );
     }
 
+    /*
+     * Updates the table body if a button is clicked.
+     */
+
     updateHTML(currencies, base) {
         this.alphabet(currencies);
 
         tbody.innerHTML = this.rowsHTML(currencies, base);
     }
 
+    /*
+     * Initial drawing up of table element HTML.
+     */
+
     render(currencies, base) {
         let tableElm = document.createElement('table');
         tableElm.innerHTML =  
             `<thead>
                 <th class="currency-th">Currency
-                    <button id="asc" class="arrows">
+                    <button id="arrows" class="arrows">
                         <span>&#9650;</span>
                         <span>&#9660;</span>
                     </button>
@@ -73,14 +93,19 @@ class Table {
         return tableElm;
     }
 
+    /*
+     * Puts table element HTML onto page.
+     * Allows click of arrow button to change alphabetical order.
+     */
+
     mount(parent, currencies) {
         this.alphabet(currencies);
         let tableElm = this.render(currencies, this.base);
         parent.appendChild(tableElm);
         this.mounted = true;
 
-        let ascBtn = document.getElementById('asc');
-        ascBtn.addEventListener('click', () => {
+        let arrowBtn = document.getElementById('arrows');
+        arrowBtn.addEventListener('click', () => {
             if (this.alphOrder === 'asc') {
                 this.alphOrder = 'desc';
                 this.updateHTML(currencies);

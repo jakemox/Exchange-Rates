@@ -1,15 +1,10 @@
-document.addEventListener('DOMContentLoaded', () => {
+const baseCurrencies = ['EUR', 'USD', 'GBP', 'AUD', 'CAD', 'JPY'];
 
-    let baseCurrencies = ['EUR', 'USD', 'GBP', 'AUD', 'CAD', 'JPY'];
+/*
+ * Returns today's date for initial page loading.
+ */
 
-    // let currencies = useCurrencies.map(currency => {
-    //     return new Currency(currency);
-    // })
-
-    let table = new Table('asc', baseCurrencies);
-    // let container = document.getElementById('container');
-    // table.mount(container, useCurrencies);
-
+function todaysDate() {
     let date = new Date();
     let dd = date.getDate();
     let mm = date.getMonth() + 1;
@@ -24,9 +19,14 @@ document.addEventListener('DOMContentLoaded', () => {
     } 
 
     date = yyyy + '-' + mm + '-' + dd;
+    return date;
+}
 
-    let form = new Form('EUR', date, table);
-    let formContainer = document.getElementById('form');
-    form.mount(formContainer, baseCurrencies);
+document.addEventListener('DOMContentLoaded', () => {
+    let table = new Table('asc', baseCurrencies);
+
+    let form = new Form('EUR', todaysDate(), table);
+    let container = document.getElementById('container');
+    form.mount(container, baseCurrencies);
     form.action();
 })

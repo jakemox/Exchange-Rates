@@ -4,7 +4,7 @@
 
 html {
     font-family: sans-serif;
-    font-size: 18px;
+    font-size: 15px;
 }
 
 h1 {
@@ -40,6 +40,7 @@ table {
     border: 1px solid black;
     border-spacing: 0;
     width: 80%;
+    padding: 0;
 }
 
 th {
@@ -99,6 +100,10 @@ tr.base {
 }
 
 @media only screen and (min-width: 768px) {
+    html {
+        font-size: 18px;
+    }
+    
     .container {
         flex-direction: row;
         justify-content: center;
