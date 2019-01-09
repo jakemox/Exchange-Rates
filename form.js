@@ -25,14 +25,12 @@ class Form {
             // Loop through currencies and set 'sell' to 5% more than conversion.
     
             this.currencies.forEach(currency => {
-                currency.buy = (json.rates[currency.name] - (json.rates[currency.name] * 5 / 100)).toFixed(4);
-                currency.sell = (json.rates[currency.name] + (json.rates[currency.name] * 5 / 100)).toFixed(4);
+                currency.buy = (json.rates[currency.name] * 0.95).toFixed(4);
+                currency.sell = (json.rates[currency.name] * 1.05).toFixed(4);
             });
 
             // If page is being loaded for first time, table mounts.
             // Otherwise table updates with new base of alphabet order.
-
-            let container = document.getElementById('container');
             
             if (this.table.mounted === false) {
                 this.table.mount(container, this.currencies);

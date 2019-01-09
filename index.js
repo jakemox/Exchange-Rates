@@ -1,5 +1,5 @@
 const baseCurrencies = ['EUR', 'USD', 'GBP', 'AUD', 'CAD', 'JPY'];
-
+let container = document.getElementById('container');
 /*
  * Returns today's date for initial page loading.
  */
@@ -26,7 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let table = new Table('asc', baseCurrencies);
 
     let form = new Form('EUR', todaysDate(), table);
-    let container = document.getElementById('container');
     form.mount(container, baseCurrencies);
     form.action();
 })
